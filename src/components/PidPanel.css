@@ -1,0 +1,110 @@
+@scope (.PidPanel) {
+  :scope {
+    grid-column: 1 / -1;
+  }
+
+  .pid-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(190px, 1fr));
+    gap: 12px;
+  }
+
+  .panel-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pid-axis {
+    border: 1px solid #2d3833;
+    border-radius: 8px;
+    padding: 13px;
+    background: var(--black);
+  }
+
+  .pid-axis header,
+  .gain-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .pid-axis header {
+    margin-bottom: 12px;
+    text-transform: capitalize;
+  }
+
+  .pid-axis-body {
+    display: grid;
+    grid-template-columns: minmax(92px, 0.42fr) minmax(140px, 1fr);
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .gain-stack {
+    display: grid;
+    align-content: start;
+    gap: 9px;
+  }
+
+  .gain-row .bp6-control-group,
+  .gain-row .bp6-numeric-input,
+  .gain-row .bp6-input-group {
+    width: 100%;
+  }
+
+  .pid-chart {
+    position: relative;
+    min-height: 118px;
+    overflow: hidden;
+    border: 1px solid var(--dark-gray-4);
+    border-radius: 8px;
+    background: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px), var(--black);
+    background-size: 28px 28px;
+  }
+
+  @media (max-width: 1100px) {
+    .pid-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .pid-axis-body {
+      grid-template-columns: 1fr;
+    }
+
+    .pid-chart {
+      min-height: 140px;
+    }
+  }
+}
+.pid-settings-popover {
+  width: 260px;
+  padding: 14px;
+  border-radius: 8px;
+  /* background: var(--dark-gray-1); */
+}
+
+.pid-settings-popover h3 {
+  margin: 0 0 14px;
+  color: #f5faf7;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+.pid-settings-popover .bp6-form-group {
+  margin-bottom: 12px;
+}
+
+.pid-settings-popover .bp6-form-group:last-child {
+  margin-bottom: 0;
+}
+
+.pid-settings-popover .bp6-label {
+  color: #a9b5af;
+  font-size: 12px;
+}

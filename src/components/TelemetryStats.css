@@ -1,0 +1,24 @@
+@scope (.TelemetryStats) {
+  :scope {
+    grid-column: 10 / 13;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 8px;
+  }
+
+  .metric-tile {
+    /* min-height: 104px; */
+    padding: 16px;
+    display: flex;
+    align-content: start;
+    gap: 8px;
+
+    div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
+  }
+}

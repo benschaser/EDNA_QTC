@@ -1,0 +1,351 @@
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 16px;
+  color: var(--white);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 8px;
+  max-width: 1640px;
+  margin: 0 auto;
+}
+
+.panel,
+.metric-tile {
+  border: 1px solid var(--dark-gray-4);
+  border-radius: 8px;
+  background: var(--black);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.26);
+}
+
+.panel {
+  min-width: 0;
+  padding: 16px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.panel-header h2,
+.brand-block h1 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+.panel-header h2 {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.eyebrow {
+  margin: 0 0 3px;
+  color: var(--green-5);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.metric-tile span,
+.metric-tile small,
+.attitude-footer,
+.legend-row {
+  color: #a4afaa;
+}
+
+.metric-tile strong {
+  color: #f7faf8;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.metric-tile small {
+  min-height: 16px;
+}
+
+.link-tile {
+  border-color: #39614e;
+}
+
+.attitude-panel {
+  min-height: 360px;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.readout-pill {
+  flex: 0 0 auto;
+  border: 1px solid #3b4742;
+  border-radius: 8px;
+  padding: 6px 9px;
+  color: #dbe5e0;
+  background: #101311;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.attitude-stage {
+  position: relative;
+  min-height: 286px;
+  height: calc(100% - 54px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid #26302b;
+  border-radius: 8px;
+  background: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 50% 58%, rgba(72, 214, 153, 0.16), transparent 34%), #0e1110;
+  background-size: 38px 38px, 38px 38px, auto, auto;
+  perspective: 850px;
+}
+
+.horizon-grid {
+  position: absolute;
+  width: 160%;
+  height: 1px;
+  background: #45504b;
+  box-shadow: 0 -64px 0 rgba(69, 80, 75, 0.45), 0 64px 0 rgba(69, 80, 75, 0.45);
+}
+
+.drone-model {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  transform-style: preserve-3d;
+  transition: transform 90ms linear;
+}
+
+.drone-arm {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 210px;
+  height: 16px;
+  margin-left: -105px;
+  margin-top: -8px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #56635d, #dfe8e3 48%, #56635d);
+}
+
+.arm-y {
+  transform: rotate(90deg);
+}
+
+.drone-body {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 82px;
+  height: 64px;
+  margin-left: -41px;
+  margin-top: -32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #8ef0bf;
+  border-radius: 8px;
+  background: #1c2420;
+  box-shadow: 0 0 34px rgba(92, 226, 160, 0.25);
+}
+
+.drone-body span {
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.drone-body b {
+  position: absolute;
+  top: -11px;
+  width: 13px;
+  height: 13px;
+  background: #ff6b7a;
+  border-radius: 50%;
+}
+
+.motor-pod {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #54615b;
+  border-radius: 50%;
+  background: #111512;
+}
+
+.motor-pod span {
+  position: absolute;
+  bottom: -21px;
+  color: #b9c4be;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.front-left {
+  top: 16%;
+  left: 16%;
+}
+
+.front-right {
+  top: 16%;
+  left: 84%;
+}
+
+.rear-left {
+  top: 84%;
+  left: 16%;
+}
+
+.rear-right {
+  top: 84%;
+  left: 84%;
+}
+
+.propeller {
+  width: 64px;
+  height: 13px;
+  border-radius: 8px;
+  background: #d8e2dc;
+  box-shadow: 0 0 0 4px rgba(55, 211, 153, 0.08);
+  animation: blade-spin var(--spin-speed, 420ms) linear infinite;
+}
+
+.propeller::after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 64px;
+  margin-left: 25px;
+  margin-top: -25px;
+  border-radius: 8px;
+  background: rgba(216, 226, 220, 0.65);
+}
+
+@keyframes blade-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.attitude-footer {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.motor-list {
+  display: grid;
+  gap: 14px;
+}
+
+.motor-row {
+  display: grid;
+  gap: 8px;
+}
+
+.motor-row > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.motor-row span {
+  color: #c6d0cb;
+}
+
+.motor-track {
+  height: 13px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #252b28;
+}
+
+.motor-track i {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #37d399, #f5c84b, #ff6b7a);
+  transition: width 100ms linear;
+}
+
+.gain-row {
+  margin-top: 9px;
+}
+
+.gain-row span {
+  width: 34px;
+  color: #a8b2ad;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gain-row .bp6-control-group,
+.gain-row .bp6-numeric-input,
+.gain-row .bp6-input-group {
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .stats-row,
+  .pid-panel {
+    grid-column: auto;
+  }
+
+  .stats-row,
+  .pid-grid {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .app-shell {
+    padding: 12px;
+  }
+
+  .stats,
+  .pid-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-tile strong {
+    font-size: 24px;
+  }
+
+  .attitude-footer {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,17 @@
+@scope (.OrientationPanel) {
+  :scope {
+    min-height: 360px;
+    grid-column: 1 / 10;
+  }
+  .legend-dot.roll {
+    background: #37d399;
+  }
+
+  .legend-dot.pitch {
+    background: #f5c84b;
+  }
+
+  .legend-dot.yaw {
+    background: #ff6b7a;
+  }
+}

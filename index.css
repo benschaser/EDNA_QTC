@@ -1,0 +1,116 @@
+@import "normalize.css";
+@import "@blueprintjs/core/lib/css/blueprint.css";
+@import "@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+:root {
+  /* grayscale */
+  --black: #111418;
+  --dark-gray-1: #1c2127;
+  --dark-gray-2: #252a31;
+  --dark-gray-3: #2f343c;
+  --dark-gray-4: #383e47;
+  --dark-gray-5: #404854;
+
+  --gray-1: #5f6b7c;
+  --gray-2: #738091;
+  --gray-3: #8f99a8;
+  --gray-4: #abb3bf;
+  --gray-5: #c5cbd3;
+
+  --light-gray-1: #d3d8de;
+  --light-gray-2: #dce0e5;
+  --light-gray-3: #e5e8eb;
+  --light-gray-4: #edeff2;
+  --light-gray-5: #f6f7f9;
+
+  --white: #ffffff;
+
+  /* core */
+  --blue-1: #184a90;
+  --blue-2: #215db0;
+  --blue-3: #2d72d2;
+  --blue-4: #4c90f0;
+  --blue-5: #8abbff;
+
+  --green-1: #165a36;
+  --green-2: #1c6e42;
+  --green-3: #238551;
+  --green-4: #32a467;
+  --green-5: #72ca9b;
+
+  --orange-1: #77450d;
+  --orange-2: #935610;
+  --orange-3: #c87619;
+  --orange-4: #ec9a3c;
+  --orange-5: #fbb360;
+
+  --red-1: #8e292c;
+  --red-2: #ac2f33;
+  --red-3: #cd4246;
+  --red-4: #e76a6e;
+  --red-5: #fa999c;
+
+  /* extended */
+  --cerulean-1: #0c5174;
+  --cerulean-2: #0f6894;
+  --cerulean-3: #147eb3;
+  --cerulean-4: #3fa6da;
+  --cerulean-5: #68c1ee;
+
+  --forest-1: #1d7324;
+  --forest-2: #238c2c;
+  --forest-3: #29a634;
+  --forest-4: #43bf4d;
+  --forest-5: #62d96b;
+
+  --gold-1: #5c4405;
+  --gold-2: #866103;
+  --gold-3: #d1980b;
+  --gold-4: #f0b726;
+  --gold-5: #fbd065;
+
+  --indigo-1: #5642a6;
+  --indigo-2: #634dbf;
+  --indigo-3: #7961db;
+  --indigo-4: #9881f3;
+  --indigo-5: #bdadff;
+
+  --lime-1: #43501b;
+  --lime-2: #5a701a;
+  --lime-3: #8eb125;
+  --lime-4: #b6d94c;
+  --lime-5: #d4f17e;
+
+  --rose-1: #a82255;
+  --rose-2: #c22762;
+  --rose-3: #db2c6f;
+  --rose-4: #f5498b;
+  --rose-5: #ff66a1;
+
+  --sepia-1: #5e4123;
+  --sepia-2: #7a542e;
+  --sepia-3: #946638;
+  --sepia-4: #af855a;
+  --sepia-5: #d0b090;
+
+  --turquoise-1: #004d46;
+  --turquoise-2: #007067;
+  --turquoise-3: #00a396;
+  --turquoise-4: #13c9ba;
+  --turquoise-5: #7ae1d8;
+
+  --vermilion-1: #96290d;
+  --vermilion-2: #b83211;
+  --vermilion-3: #d33d17;
+  --vermilion-4: #eb6847;
+  --vermilion-5: #ff9980;
+
+  --violet-1: #5c255c;
+  --violet-2: #7c327c;
+  --violet-3: #9d3f9d;
+  --violet-4: #bd6bbd;
+  --violet-5: #d69fd6;
+
+  background-color: var(--black);
+  background: linear-gradient(to bottom, var(--dark-gray-1) 50%, var(--black)), var(--black);
+}
