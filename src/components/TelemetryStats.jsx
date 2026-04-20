@@ -1,5 +1,6 @@
 import React from "react";
 import "./TelemetryStats.css";
+import { Card } from "@blueprintjs/core";
 
 const attitudeStats = [
   { key: "roll", label: "Roll", unit: "deg" },
@@ -12,37 +13,37 @@ function TelemetryStats({ packet, health }) {
   return (
     <section className="TelemetryStats">
       {/* Roll */}
-      <article className="metric-tile">
+      <Card compact className="tile">
         <span>Roll</span>
         <div>
           <strong>{format(packet["roll"])}</strong>
           <small>deg</small>
         </div>
-      </article>
+      </Card>
       {/* Pitch */}
-      <article className="metric-tile">
+      <Card compact className="tile">
         <span>Pitch</span>
         <div>
           <strong>{format(packet["pitch"])}</strong>
           <small>deg</small>
         </div>
-      </article>
+      </Card>
       {/* Yaw Rate */}
-      <article className="metric-tile">
+      <Card className="tile">
         <span>Yaw Rate</span>
         <div>
           <strong>{format(packet["yaw_rate"])}</strong>
           <small>deg/s</small>
         </div>
-      </article>
+      </Card>
       {/* Throttle */}
-      <article className="metric-tile">
+      <Card className="tile">
         <span>Throttle</span>
         <div>
           <strong>{format(packet["throttle"])}</strong>
           <small>&micro;s</small>
         </div>
-      </article>
+      </Card>
       {/* {attitudeStats.map((stat) => (
         <article className="metric-tile" key={stat.key}>
           <span>{stat.label}</span>

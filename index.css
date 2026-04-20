@@ -112,5 +112,5 @@
   --violet-5: #d69fd6;
 
   background-color: var(--black);
-  background: linear-gradient(to bottom, var(--dark-gray-1) 50%, var(--black)), var(--black);
+  /* background: linear-gradient(to bottom, var(--dark-gray-1) 50%, var(--black)), var(--black); */
 }

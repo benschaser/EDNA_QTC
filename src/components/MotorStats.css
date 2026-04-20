@@ -32,13 +32,26 @@
     overflow: hidden;
     border-radius: 8px;
     background: var(--black);
+    container-type: inline-size;
   }
 
   .motor-track i {
     display: block;
+    position: relative;
     height: 100%;
     border-radius: 8px;
-    background: linear-gradient(90deg, var(--green-5), var(--orange-5), var(--red-5));
+    overflow: clip;
+    /* background: linear-gradient(90deg, var(--green-5), var(--orange-5), var(--red-5)); */
     transition: width 100ms linear;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100cqw;
+      bottom: 0;
+      background: linear-gradient(to right, var(--green-4), var(--orange-4), var(--red-4));
+    }
   }
 }

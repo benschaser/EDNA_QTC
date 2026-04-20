@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import "./PidPanel.css";
-import { Button, Colors, FormGroup, NumericInput, Popover } from "@blueprintjs/core";
+import { Button, Colors, FormGroup, NumericInput, Popover, Section, SectionCard } from "@blueprintjs/core";
 import { Line, LineChart, ResponsiveContainer, YAxis } from "recharts";
 
 const axes = ["pitch", "roll", "yaw"];
@@ -15,121 +15,123 @@ const responseTargets = {
 function PidPanel({ drafts, lastConfirmedDrafts, onDraftsChange, onUndoChanges, onSend, connected }) {
   const hasUnsavedChanges = !pidDraftsEqual(drafts, lastConfirmedDrafts);
   const [graphSettings, setGraphSettings] = useState({
-    timespan: "2",
+    timespan: "20",
     samples: "100",
   });
 
   return (
-    <section className="PidPanel panel pid-panel">
-      <div className="panel-header">
-        <div>
-          <p className="eyebrow">Control loop</p>
-          <h2>PID gains</h2>
-        </div>
-        <div className="panel-actions">
-          <Button
-            disabled={!connected}
-            intent={connected ? "success" : undefined}
-            icon={connected ? "send-message" : "issue"}
-            onClick={() => onSend(drafts)}
-          >
-            {connected ? "Send All" : "Connect to Send"}
-          </Button>{" "}
-          <Button icon="reset" disabled={!hasUnsavedChanges} onClick={onUndoChanges} />
-          {/* timespan and sample size settings */}
-          <Popover
-            placement="bottom-end"
-            content={
-              <div className="pid-settings-popover">
-                <p className="eyebrow">Settings</p>
-                <h3>PID Graphs</h3>
-                <FormGroup label="Timespan (s)">
-                  <NumericInput
-                    min={0.1}
-                    max={30}
-                    stepSize={0.25}
-                    minorStepSize={0.05}
-                    majorStepSize={1}
-                    buttonPosition="none"
-                    value={graphSettings.timespan}
-                    onValueChange={(_value, valueAsString) =>
-                      setGraphSettings({
-                        ...graphSettings,
-                        timespan: valueAsString,
-                      })
-                    }
-                  />
-                </FormGroup>
-                <FormGroup label="Samples">
-                  <NumericInput
-                    min={10}
-                    max={1000}
-                    stepSize={10}
-                    minorStepSize={1}
-                    majorStepSize={50}
-                    buttonPosition="none"
-                    value={graphSettings.samples}
-                    onValueChange={(_value, valueAsString) =>
-                      setGraphSettings({
-                        ...graphSettings,
-                        samples: valueAsString,
-                      })
-                    }
-                  />
-                </FormGroup>
-              </div>
-            }
-          >
-            <Button icon="cog" />
-          </Popover>
-          {/* {connected ? (
+    <Section compact className="PidPanel">
+      <SectionCard>
+        <div className="panel-header">
+          <div>
+            <p className="eyebrow">Control loop</p>
+            <h2>PID gains</h2>
+          </div>
+          <div className="panel-actions">
+            <Button
+              disabled={!connected}
+              intent={connected ? "success" : undefined}
+              icon={connected ? "send-message" : "issue"}
+              onClick={() => onSend(drafts)}
+            >
+              {connected ? "Send All" : "Connect to Send"}
+            </Button>{" "}
+            <Button icon="reset" disabled={!hasUnsavedChanges} onClick={onUndoChanges} />
+            {/* timespan and sample size settings */}
+            <Popover
+              placement="bottom-end"
+              content={
+                <div className="pid-settings-popover">
+                  <p className="eyebrow">Settings</p>
+                  <h3>PID Graphs</h3>
+                  <FormGroup label="Timespan (s)">
+                    <NumericInput
+                      min={0.1}
+                      max={30}
+                      stepSize={0.25}
+                      minorStepSize={0.05}
+                      majorStepSize={1}
+                      buttonPosition="none"
+                      value={graphSettings.timespan}
+                      onValueChange={(_value, valueAsString) =>
+                        setGraphSettings({
+                          ...graphSettings,
+                          timespan: valueAsString,
+                        })
+                      }
+                    />
+                  </FormGroup>
+                  <FormGroup label="Samples">
+                    <NumericInput
+                      min={10}
+                      max={1000}
+                      stepSize={10}
+                      minorStepSize={1}
+                      majorStepSize={50}
+                      buttonPosition="none"
+                      value={graphSettings.samples}
+                      onValueChange={(_value, valueAsString) =>
+                        setGraphSettings({
+                          ...graphSettings,
+                          samples: valueAsString,
+                        })
+                      }
+                    />
+                  </FormGroup>
+                </div>
+              }
+            >
+              <Button icon="cog" />
+            </Popover>
+            {/* {connected ? (
             <Button intent="success" icon="send-message" disabled={!connected} onClick={() => onSend(drafts)}>
               Send all
             </Button>
           ) : (
             <div className="readout-pill">Connect to Send</div>
           )} */}
+          </div>
         </div>
-      </div>
 
-      <div className="pid-grid">
-        {axes.map((axis) => (
-          <article className="pid-axis" key={axis}>
-            <header>
-              <strong>{axis}</strong>
-            </header>
-            <div className="pid-axis-body">
-              <div className="gain-stack">
-                {gains.map((gain) => (
-                  <label className="gain-row" key={gain}>
-                    <span>{gain.toUpperCase()}</span>
-                    <NumericInput
-                      min={0}
-                      style={{ maxWidth: 64 }}
-                      stepSize={gain === "ki" ? 0.001 : 0.01}
-                      minorStepSize={gain === "ki" ? 0.0001 : 0.001}
-                      majorStepSize={gain === "ki" ? 0.01 : 0.1}
-                      buttonPosition="none"
-                      value={String(drafts[axis][gain] ?? "")}
-                      onValueChange={(_value, valueAsString) =>
-                        onDraftsChange({
-                          ...drafts,
-                          [axis]: {
-                            ...drafts[axis],
-                            [gain]: valueAsString,
-                          },
-                        })
-                      }
-                    />
-                  </label>
-                ))}
+        <div className="pid-grid">
+          {axes.map((axis) => (
+            <article className="pid-axis" key={axis}>
+              <header>
+                <strong>{axis}</strong>
+              </header>
+              <div className="pid-axis-body">
+                <div className="gain-stack">
+                  {gains.map((gain) => (
+                    <label className="gain-row" key={gain}>
+                      <span>{gain.toUpperCase()}</span>
+                      <NumericInput
+                        min={0}
+                        style={{ maxWidth: 64 }}
+                        stepSize={gain === "ki" ? 0.001 : 0.01}
+                        minorStepSize={gain === "ki" ? 0.0001 : 0.001}
+                        majorStepSize={gain === "ki" ? 0.01 : 0.1}
+                        buttonPosition="none"
+                        value={String(drafts[axis][gain] ?? "")}
+                        onValueChange={(_value, valueAsString) =>
+                          onDraftsChange({
+                            ...drafts,
+                            [axis]: {
+                              ...drafts[axis],
+                              [gain]: valueAsString,
+                            },
+                          })
+                        }
+                      />
+                    </label>
+                  ))}
+                </div>
+                <PidAxisChart axis={axis} gains={drafts[axis]} settings={graphSettings} />
               </div>
-              <PidAxisChart axis={axis} gains={drafts[axis]} settings={graphSettings} />
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+            </article>
+          ))}
+        </div>
+      </SectionCard>
+    </Section>
   );
 }
 

@@ -34,6 +34,7 @@ function MotorPanel({ packet }) {
                 <strong>{value.toFixed(0)} &micro;s</strong>
               </div>
               <div className="motor-track">
+                {/* <i style={{ width: `${pct}%` }} /> */}
                 <i style={{ width: `${pct}%` }} />
               </div>
             </div>
