@@ -3,7 +3,7 @@ import { FocusStyleManager, OverlayToaster, Position } from "@blueprintjs/core";
 
 import "./App.css";
 import DroneAttitude from "./components/DroneAttitude";
-import MotorPanel from "./components/MotorPanel";
+import MotorStats from "./components/MotorStats";
 import PidPanel from "./components/PidPanel";
 import OrientationPanel from "./components/OrientationPanel";
 import TelemetryStats from "./components/TelemetryStats";
@@ -150,6 +150,7 @@ function App() {
       <TopBar telemetry={telemetry} health={health} />
 
       <section className="dashboard-grid">
+        <MotorStats packet={packet} />
         <OrientationPanel data={telemetry.history.length ? telemetry.history : [packet]} />
 
         <TelemetryStats packet={packet} health={health} />

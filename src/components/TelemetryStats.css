@@ -1,6 +1,6 @@
 @scope (.TelemetryStats) {
   :scope {
-    grid-column: 10 / 13;
+    grid-column: 11 / 13;
     display: grid;
     grid-template-columns: 1fr;
     grid-auto-rows: 1fr;

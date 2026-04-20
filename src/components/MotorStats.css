@@ -1,0 +1,44 @@
+@scope (.MotorStats) {
+  :scope {
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr 2fr;
+    gap: 8px;
+  }
+
+  .motor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .motor-row {
+    display: grid;
+    gap: 8px;
+  }
+
+  .motor-row > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .motor-row span {
+    color: #c6d0cb;
+  }
+
+  .motor-track {
+    height: 13px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--black);
+  }
+
+  .motor-track i {
+    display: block;
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--green-5), var(--orange-5), var(--red-5));
+    transition: width 100ms linear;
+  }
+}

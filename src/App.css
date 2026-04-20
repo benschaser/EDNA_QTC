@@ -1,5 +1,6 @@
 #root {
   min-height: 100vh;
+  overscroll-behavior: none;
 }
 
 .app-shell {
@@ -260,41 +261,6 @@
   justify-content: space-between;
   gap: 10px;
   font-size: 12px;
-}
-
-.motor-list {
-  display: grid;
-  gap: 14px;
-}
-
-.motor-row {
-  display: grid;
-  gap: 8px;
-}
-
-.motor-row > div:first-child {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.motor-row span {
-  color: #c6d0cb;
-}
-
-.motor-track {
-  height: 13px;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #252b28;
-}
-
-.motor-track i {
-  display: block;
-  height: 100%;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #37d399, #f5c84b, #ff6b7a);
-  transition: width 100ms linear;
 }
 
 .gain-row {
