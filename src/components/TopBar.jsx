@@ -2,7 +2,7 @@ import React from "react";
 import { Button, FormGroup, InputGroup, Popover, Tag } from "@blueprintjs/core";
 import "./TopBar.css";
 
-function TopBar({ telemetry, health }) {
+function TopBar({ telemetry, health, packetLogDir, onPacketLogDirChange }) {
   const { target, setTarget, connected, connecting, connect, disconnect, error } = telemetry;
 
   return (
@@ -29,20 +29,30 @@ function TopBar({ telemetry, health }) {
           placement="bottom-end"
           content={
             <div className="network-popover">
-              <p className="eyebrow">Network</p>
-              <h3>UDP settings</h3>
+              <p className="eyebrow">EDNA QTC</p>
+              <h3>Settings</h3>
               <FormGroup label="Host">
-                <InputGroup
-                  value={target.host}
-                  onChange={(event) => setTarget({ ...target, host: event.target.value })}
-                  placeholder="192.168.4.1"
-                />
+                <div className="udp-host">
+                  <InputGroup
+                    value={target.host}
+                    maxLength={15}
+                    onChange={(event) => setTarget({ ...target, host: event.target.value })}
+                    placeholder="192.168.4.1"
+                  />
+                  <div className="port-separator">:</div>
+                  <InputGroup
+                    value={target.port}
+                    maxLength={4}
+                    onChange={(event) => setTarget({ ...target, port: event.target.value })}
+                    placeholder="4444"
+                  />
+                </div>
               </FormGroup>
-              <FormGroup label="Port">
+              <FormGroup label="Packet Log Folder">
                 <InputGroup
-                  value={target.port}
-                  onChange={(event) => setTarget({ ...target, port: event.target.value })}
-                  placeholder="4444"
+                  value={packetLogDir}
+                  onChange={(event) => onPacketLogDirChange(event.target.value)}
+                  placeholder="/path/to/telemetry/logs"
                 />
               </FormGroup>
             </div>

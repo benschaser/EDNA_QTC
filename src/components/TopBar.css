@@ -44,18 +44,17 @@
 }
 
 .network-popover .bp6-label {
-  color: #a9b5af;
   font-size: 12px;
 }
 
-.error-banner {
-  grid-column: 1 / -1;
-  border: 1px solid #7b3943;
-  border-radius: 8px;
-  padding: 9px 12px;
-  color: #ffdce1;
-  background: #2a1116;
-  font-size: 13px;
+.udp-host {
+  display: grid;
+  grid-template-columns: 2fr auto 1fr;
+  gap: 2px;
+}
+.port-separator {
+  font-size: 20px;
+  color: var(--gray-4);
 }
 
 @media (max-width: 900px) {

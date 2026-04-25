@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FocusStyleManager, OverlayToaster, Position } from "@blueprintjs/core";
+import { invoke } from "@tauri-apps/api/core";
 
 import "./App.css";
 import DroneAttitude from "./components/DroneAttitude";
@@ -30,6 +31,45 @@ function App() {
   const [lastConfirmedPid, setLastConfirmedPid] = useState(defaultPid);
   const [pidDraftsInitialized, setPidDraftsInitialized] = useState(false);
   const [pendingPidConfirmation, setPendingPidConfirmation] = useState(null);
+  const [packetLogDir, setPacketLogDir] = useState("");
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    invoke("load_app_settings")
+      .then((settings) => {
+        if (cancelled || !settings) return;
+
+        const savedTarget = hydrateTargetSettings(settings.telemetry);
+        const savedPid = normalizePidDrafts(settings.pid_drafts);
+        telemetry.setTarget(savedTarget);
+        setPidDrafts(savedPid);
+        setLastConfirmedPid(savedPid);
+        setPidDraftsInitialized(true);
+        setPacketLogDir(String(settings.packet_log_dir ?? ""));
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        appToaster.then((toaster) => {
+          toaster.show({
+            icon: "warning-sign",
+            intent: "warning",
+            message: `Could not load saved settings: ${String(err)}`,
+            timeout: 5000,
+          });
+        });
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setSettingsLoaded(true);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [telemetry.setTarget]);
 
   useEffect(() => {
     if (!telemetry.latest || pidDraftsInitialized) return;
@@ -64,6 +104,30 @@ function App() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!settingsLoaded) return;
+
+    invoke("save_app_settings", {
+      settings: {
+        telemetry: normalizeTargetSettings(telemetry.target),
+        pid_drafts: normalizePidDrafts(pidDrafts),
+        packet_log_dir: packetLogDir.trim(),
+      },
+    }).catch((err) => {
+      const message = `Could not save settings: ${String(err)}`;
+      if (lastToastedError.current === message) return;
+      lastToastedError.current = message;
+      appToaster.then((toaster) => {
+        toaster.show({
+          icon: "floppy-disk",
+          intent: "warning",
+          message,
+          timeout: 5000,
+        });
+      });
+    });
+  }, [settingsLoaded, telemetry.target, pidDrafts, packetLogDir]);
 
   useEffect(() => {
     if (!pendingPidConfirmation || !telemetry.latest) return;
@@ -147,7 +211,7 @@ function App() {
 
   return (
     <main className="bp6-dark app-shell">
-      <TopBar telemetry={telemetry} health={health} />
+      <TopBar telemetry={telemetry} health={health} packetLogDir={packetLogDir} onPacketLogDirChange={setPacketLogDir} />
 
       <section className="dashboard-grid">
         <MotorStats packet={packet} />
@@ -199,11 +263,28 @@ function App() {
 function normalizePidDrafts(drafts) {
   return pidAxes.reduce((normalized, axis) => {
     normalized[axis] = pidGains.reduce((axisGains, gain) => {
-      axisGains[gain] = Number(drafts?.[axis]?.[gain]);
+      const value = Number(drafts?.[axis]?.[gain]);
+      axisGains[gain] = Number.isFinite(value) ? value : 0;
       return axisGains;
     }, {});
     return normalized;
   }, {});
+}
+
+function normalizeTargetSettings(target) {
+  return {
+    host: String(target?.host ?? "192.168.4.1"),
+    port: Number(target?.port) || 4444,
+    local_port: Number(target?.localPort ?? target?.local_port) || 4444,
+  };
+}
+
+function hydrateTargetSettings(target) {
+  return {
+    host: String(target?.host ?? "192.168.4.1"),
+    port: Number(target?.port) || 4444,
+    localPort: Number(target?.local_port ?? target?.localPort) || 4444,
+  };
 }
 
 function pidDraftsMatch(left, right) {
